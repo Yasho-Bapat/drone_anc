@@ -1,0 +1,37 @@
+###### THIS IS ALL ABOUT ASYNCHRONOUS PROGRAMMING IN PYTHON ######
+
+- What is async programming?
+>> Async programming is programming such that a process operates independently of other processes.
+   Asynchronous routines are able to “pause” while waiting on their ultimate result and let other routines run in the meantime.
+
+- How is it different from threading and multitasking?
+>> Asynchronous programming in Python is a single-threaded, single-process design. It uses a concept called COOPERATIVE MULTITASKING.
+
+- Wtf are coroutines?
+>> A coroutine is an instance of suspendable computation.Coroutines are computer program components that allow execution to be suspended and resumed,
+   generalizing subroutines for cooperative multitasking. It is a specialized version of a GENERATOR FUNCTION.
+   - Wtf are generator functions?
+   >> Generator functions are defined like normal functions, but they return multiple values using the yield keyword instead of return.
+      It creates a generator object.
+      for example,
+      def Generator():
+        yield 1
+        yield 2
+        yield 3
+
+      x = Generator() # creating object
+      print(next(x)) # prints 1
+      print(next(x)) # prints 2
+      print(next(x)) # prints 3
+
+GETTING INTO ASYNCIO
+
+- async def
+>> Introduces either a native coroutine or an asynchronous generator. Defines an asynchronous function, or a coroutine.
+   Expressions async with & async for are also valid
+
+- async.gather(func(), func(), func()) OR asyncio.gather(func(a) for i in range(n))
+>> runs/calls multiple instances of the function as many times as specified
+
+- a coroutine object is AWAITABLE, so another coroutine can AWAIT it
+
