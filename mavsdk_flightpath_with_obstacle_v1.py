@@ -3,6 +3,9 @@ import random
 from mavsdk import System
 from mavsdk.offboard import (Attitude, OffboardError, VelocityNedYaw)
 
+""" Need to develop a way to avoid obstacles when detected. In this version we're only doing it by doing obstacle-true and obstacle-false. 
+Once this gets better, we need to pass values for obstacle size, etc. """
+
 drone = System()  # GLOBAL DECLARATION FOR EASE OF FUNCTION DEFINITION
 
 
@@ -18,7 +21,7 @@ async def avoid_obstacle():
     await drone.offboard.set_attitude(Attitude(-5.0, 0.0, 0.0, 0.5))  # (roll, pitch, yaw, thrust)
     await asyncio.sleep(3)
 
-    await drone.offboard.set_attitude(Attitude(0.0, -5.0, 0.0, 0.5))
+    await drone.offboard.set_attitude(Attitude(0.0, -5.0, 0.0, 0.5)) # need to work on thrust percentages 
     await asyncio.sleep(3)
 
 
@@ -57,9 +60,9 @@ async def run():
     print("obstacle: " + str(obs))
 
     print("-- go UP at 50% thrust")
-    await drone.offboard.set_attitude(Attitude(0.0, 0.0, 0.0, 0.5))  # (roll, pitch, yaw, thrust)
+    await drone.offboard.set_attitude(Attitude(0.0, 0.0, 0.0, 0.5))  # (roll, pitch, yaw, thrust) (deg, deg, deg, pct value between 0 and 1)
     await asyncio.sleep(3)
-    await drone.action.hold()
+    #await drone.action.hold()
 
     if(obs):
         await avoid_obstacle()
