@@ -3,14 +3,14 @@ from mavsdk import System
 
 async def run():
     drone = System()
-    await drone.connect(system_address="udp://:14540")
+    await drone.connect(system_address="udp://:14540") #connect to drone via a udp connection
 
-    status_test_task = asyncio.ensure_future(print_status_function(drone))
+    status_test_task = asyncio.ensure_future(print_status_function(drone)) #makes sure print_status_function keeps printing status messages
 
     print("connecting to drone")
     async for state in drone.core.connection_state():
         if state.is_connected:
-            print("connection established")
+            print("connection established") #self explanatory
             break
 
     print("waiting for drone to have a global location estimate")
@@ -30,9 +30,9 @@ async def run():
 
     #await asyncio.sleep((10))
 
-    async for pos in drone.telemetry.position():
+    async for pos in drone.telemetry.position(): #to find altitude of drone
         print("### altitude ###")
-        print(round(pos.relative_altitude_m, 1))
+        print(round(pos.relative_altitude_m, 1)) #prints rounded altitude of the drone
         if(pos.relative_altitude_m >= 2.4):
             break
 
